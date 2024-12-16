@@ -30,7 +30,7 @@ public class Produto {
 	private String nome;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
-	@NotNull(message = "O estoque é obrigatório!")
+	@NotNull(message = "O preço é obrigatório!")
 	@Positive(message = "O preço deve ser maior do que zero!")
 	private BigDecimal preco;
 
@@ -43,7 +43,7 @@ public class Produto {
 	private int estoque;
 
 	@ManyToOne
-	@JsonIgnoreProperties("produtos")
+	@JsonIgnoreProperties("produto")
 	private Categoria categoria;
 
 	public Long getId() {
