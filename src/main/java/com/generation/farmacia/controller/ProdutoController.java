@@ -1,5 +1,6 @@
 package com.generation.farmacia.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.farmacia.model.Produto;
 import com.generation.farmacia.repository.CategoriaRepository;
 import com.generation.farmacia.repository.ProdutoRepository;
+import com.generation.farmacia.service.ProdutoService;
 
 import jakarta.validation.Valid;
 
@@ -32,6 +34,9 @@ public class ProdutoController {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
+	@Autowired 
+	private ProdutoService produtoService;
+	
 	@GetMapping
 	public ResponseEntity<List<Produto>> getAll() {
 		return ResponseEntity.ok(produtoRepository.findAll());
@@ -78,4 +83,8 @@ public class ProdutoController {
 		}).orElse(ResponseEntity.notFound().build());
 	}
 
+	@GetMapping("/precomaximo/{max}")
+	public ResponseEntity<List<Produto>> getProdutosAtePreco(@PathVariable BigDecimal max) {
+	    return ResponseEntity.ok(produtoService.buscarPrecoMaximo(max));
+	}
 }
